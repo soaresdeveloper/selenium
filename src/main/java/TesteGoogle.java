@@ -1,13 +1,18 @@
+import org.junit.Assert;
+import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TesteGoogle {
 
-	public static void main(String[] args) {
-		WebDriver driver = new FirefoxDriver();
+	@Test
+	public void teste() {
+
+		// System.setProperty("webdriver.gecko.driver", "C:\\\\Java\\\\testes-automatizados\\\\geckodriver.exe");
+		WebDriver driver = new ChromeDriver();
 		driver.get("http://www.google.com");
-		
-		System.out.println(driver.getTitle());
+
+		Assert.assertEquals("Google", driver.getTitle());
 	}
 
 }
