@@ -11,8 +11,14 @@ public class TesteGoogle {
 		// System.setProperty("webdriver.gecko.driver", "C:\\\\Java\\\\testes-automatizados\\\\geckodriver.exe");
 		WebDriver driver = new ChromeDriver();
 		driver.get("http://www.google.com");
+		
 
 		Assert.assertEquals("Google", driver.getTitle());
+		
+		/**
+		 * fecha todas as abas e mata o processo do driver.
+		 */
+		driver.quit();
 	}
 
 }
