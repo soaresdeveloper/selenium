@@ -139,4 +139,14 @@ public class TesteCampoTreinamento {
 		driver.quit();
 	}
 
+	@Test
+	public void deveInteragirComBotoes() {
+
+		WebElement button = driver.findElement(By.id("buttonSimple"));
+		button.click();
+
+		Assert.assertEquals("Obrigado!", button.getAttribute("value"));
+		driver.quit();
+	}
+
 }
