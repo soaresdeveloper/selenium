@@ -43,4 +43,32 @@ public class TesteCampoTreinamento {
 		driver.quit();
 	}
 
+	@Test
+	public void deveInteragirComRadioButton() {
+
+		WebElement radioMasculino = driver.findElement(By.id("elementosForm:sexo:0"));
+		radioMasculino.click();
+
+		/**
+		 * verifica se o radio button está selecionado.
+		 */
+		Assert.assertTrue(radioMasculino.isSelected());
+
+		driver.quit();
+	}
+
+	@Test
+	public void deveInteragirComCheckBox() {
+
+		WebElement checkComida = driver.findElement(By.id("elementosForm:comidaFavorita:2"));
+		checkComida.click();
+
+		/**
+		 * verifica se o check box está selecionado.
+		 */
+		Assert.assertTrue(checkComida.isSelected());
+
+		driver.quit();
+	}
+
 }
