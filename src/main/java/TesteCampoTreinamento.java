@@ -2,6 +2,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -147,6 +148,14 @@ public class TesteCampoTreinamento {
 
 		Assert.assertEquals("Obrigado!", button.getAttribute("value"));
 		driver.quit();
+	}
+	
+	@Test
+	@Ignore
+	public void deveInteragirComLinks() {
+		
+		WebElement link = driver.findElement(By.linkText("Voltar"));
+		link.click();
 	}
 
 }
