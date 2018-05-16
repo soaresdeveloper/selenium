@@ -1,3 +1,5 @@
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -5,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class TesteCampoTreinamento {
 
@@ -68,6 +71,49 @@ public class TesteCampoTreinamento {
 		 */
 		Assert.assertTrue(checkComida.isSelected());
 
+		driver.quit();
+	}
+
+	@Test
+	public void deveInteragirComComboBox() {
+
+		WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
+		Select combo = new Select(element);
+
+		/**
+		 * Seleciona o combo por index, valor ou texto visivel (label).
+		 * combo.selectByValue("superior"); combo.selectByIndex(4);
+		 * 
+		 */
+
+		combo.selectByVisibleText("Mestrado");
+
+		Assert.assertEquals("Mestrado", combo.getFirstSelectedOption().getText());
+
+		driver.quit();
+	}
+
+	@Test
+	public void deveVerificarValoresComboBox() {
+
+		WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
+		Select combo = new Select(element);
+
+		/**
+		 * Retorna todas as opções de um combo.
+		 */
+		List<WebElement> options = combo.getOptions();
+		Assert.assertEquals(8, options.size());
+
+		boolean encontrou = false;
+		for (WebElement option : options) {
+			if (option.getText().equals("Mestrado")) {
+				encontrou = true;
+				break;
+			}
+		}
+
+		Assert.assertTrue(encontrou);
 		driver.quit();
 	}
 
