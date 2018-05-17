@@ -45,6 +45,30 @@ public class TesteAlert {
 		txtNome.sendKeys(alertText);
 	}
 
+	@Test
+	public void deveInteragirComAlertConfirm() {
+
+		WebElement btnConfirm = driver.findElement(By.id("confirm"));
+		btnConfirm.click();
+
+		// Altera o foco para o alert.
+		Alert alert = driver.switchTo().alert();
+		Assert.assertEquals("Confirm Simples", alert.getText());
+
+		// Aceita alerta.
+		alert.accept();
+		Assert.assertEquals("Confirmado", alert.getText());
+		alert.accept();
+
+		btnConfirm.click();
+		alert = driver.switchTo().alert();
+		Assert.assertEquals("Confirm Simples", alert.getText());
+		// Cancela alerta.
+		alert.dismiss();
+		Assert.assertEquals("Negado", alert.getText());
+		alert.accept();
+	}
+
 	@After
 	public void quit() {
 		driver.quit();
