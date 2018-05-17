@@ -149,13 +149,31 @@ public class TesteCampoTreinamento {
 		Assert.assertEquals("Obrigado!", button.getAttribute("value"));
 		driver.quit();
 	}
-	
+
 	@Test
 	@Ignore
 	public void deveInteragirComLinks() {
-		
+
 		WebElement link = driver.findElement(By.linkText("Voltar"));
 		link.click();
+	}
+
+	@Test
+	public void deveBuscarTextosNaPagina() {
+
+		/*
+		 * retorna todo o texto que está dentro da tag. WebElement body =
+		 * driver.findElement(By.tagName("body"));
+		 */
+		WebElement h3 = driver.findElement(By.tagName("h3"));
+
+		WebElement span = driver.findElement(By.className("facilAchar"));
+
+		// Procura um determinado texto dentro da tag.
+		Assert.assertEquals("Campo de Treinamento", h3.getText());
+		Assert.assertEquals("Cuidado onde clica, muitas armadilhas...", span.getText());
+
+		driver.quit();
 	}
 
 }
