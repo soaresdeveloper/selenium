@@ -69,6 +69,27 @@ public class TesteAlert {
 		alert.accept();
 	}
 
+	@Test
+	public void deveInteragirComAlertPrompt() {
+
+		WebElement btnPrompt = driver.findElement(By.id("prompt"));
+		btnPrompt.click();
+
+		Alert alert = driver.switchTo().alert();
+		Assert.assertEquals("Digite um numero", alert.getText());
+		
+		String texto = "Teste";
+		alert.sendKeys(texto);
+		alert.accept();
+
+		Assert.assertTrue(alert.getText().contains(texto));
+		alert.accept();
+
+		Assert.assertEquals(":D", alert.getText());
+		alert.accept();
+
+	}
+
 	@After
 	public void quit() {
 		driver.quit();
