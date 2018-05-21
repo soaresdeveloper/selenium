@@ -1,5 +1,3 @@
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class TesteCadastroCompleto {
 
@@ -17,6 +14,7 @@ public class TesteCadastroCompleto {
 	 */
 	private static final String USER_DIR = System.getProperty("user.dir");
 	private WebDriver driver = new ChromeDriver();
+	private DSL dsl = new DSL(driver);
 
 	@Before
 	public void init() {
@@ -36,49 +34,39 @@ public class TesteCadastroCompleto {
 		String sugestoes = "Teste";
 
 		// seta nome.
-		driver.findElement(By.id("elementosForm:nome")).sendKeys(nome);
+		dsl.escrever("elementosForm:nome", nome);
 		// seta sobrenome.
-		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys(sobrenome);
+		dsl.escrever("elementosForm:sobrenome", sobrenome);
 		// seleciona radio button sexo e verifica se foi selecionado.
-		driver.findElement(By.id("elementosForm:sexo:0")).click();
+		dsl.clicarRadio("elementosForm:sexo:0");
 		Assert.assertTrue(driver.findElement(By.id("elementosForm:sexo:0")).isSelected());
 		// seleciona checkbox comida.
-		driver.findElement(By.id("elementosForm:comidaFavorita:2")).click();
-		Assert.assertTrue(driver.findElement(By.id("elementosForm:comidaFavorita:2")).isSelected());
+		dsl.clicarRadio("elementosForm:comidaFavorita:2");
 
 		// seleciona escolaridade.
-		WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
-		Select combo = new Select(element);
-		combo.selectByValue(escolaridade);
-		Assert.assertEquals("2o grau completo", combo.getFirstSelectedOption().getText());
+		dsl.selecionarCombo("elementosForm:escolaridade", escolaridade);
 
 		// seleciona esportes.
-		WebElement elementEsporte = driver.findElement(By.id("elementosForm:esportes"));
-		Select comboEsporte = new Select(elementEsporte);
 
-		comboEsporte.selectByVisibleText("Futebol");
-		comboEsporte.selectByVisibleText("Corrida");
-
-		List<WebElement> allSelectedOptions = comboEsporte.getAllSelectedOptions();
-		Assert.assertEquals(2, allSelectedOptions.size());
+		dsl.selecionarComboByVisibleText("elementosForm:esportes", "Futebol");
+		dsl.selecionarComboByVisibleText("elementosForm:esportes", "Corrida");
 
 		// escreve sugestoes.
-		driver.findElement(By.id("elementosForm:sugestoes")).sendKeys(sugestoes);
+		dsl.escrever("elementosForm:sugestoes", sugestoes);
 
 		// cadastra.
-		driver.findElement(By.id("elementosForm:cadastrar")).click();
+		dsl.clicar("elementosForm:cadastrar");
 
-		WebElement divResultado = driver.findElement(By.id("resultado"));
+		WebElement divResultado = dsl.obterElementoPorId("resultado");
 		Assert.assertEquals("Cadastrado!", divResultado.findElement(By.tagName("span")).getText());
 
-		Assert.assertEquals("Nome: " + nome, dsl.obterValorCampo("descNome"));
-		Assert.assertEquals("Sobrenome: " + sobrenome, dsl.obterValorCampo("descSobrenome"));
-		Assert.assertEquals("Sexo: " + sexo, dsl.obterValorCampo("descSexo"));
-		Assert.assertEquals("Comida: " + comida, dsl.obterValorCampo("descComida"));
-		Assert.assertEquals("Escolaridade: " + escolaridade, dsl.obterValorCampo("descEscolaridade"));
-				divResultado.findElement(By.id("descEscolaridade")).getText());
-		Assert.assertEquals("Esportes: " + esporte, divResultado.findElement(By.id("descEsportes")).getText());
-		Assert.assertEquals("Sugestoes: " + sugestoes, divResultado.findElement(By.id("descSugestoes")).getText());
+		Assert.assertEquals("Nome: " + nome, dsl.obterTexto("descNome"));
+		Assert.assertEquals("Sobrenome: " + sobrenome, dsl.obterTexto("descSobrenome"));
+		Assert.assertEquals("Sexo: " + sexo, dsl.obterTexto("descSexo"));
+		Assert.assertEquals("Comida: " + comida, dsl.obterTexto("descComida"));
+		Assert.assertEquals("Escolaridade: " + escolaridade, dsl.obterTexto("descEscolaridade"));
+		Assert.assertEquals("Esportes: " + esporte, dsl.obterTexto("descEsportes"));
+		Assert.assertEquals("Sugestoes: " + sugestoes, dsl.obterTexto("descSugestoes"));
 
 	}
 

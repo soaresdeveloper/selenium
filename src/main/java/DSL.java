@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 public class DSL {
 
@@ -18,4 +20,41 @@ public class DSL {
 		return driver.findElement(By.id(idCampo)).getAttribute("value");
 	}
 
+	public void clicarRadio(String id) {
+		driver.findElement(By.id(id)).click();
+	}
+
+	public void clicar(String id) {
+		driver.findElement(By.id(id)).click();
+	}
+
+	public boolean isRadioMarcado(String id) {
+		return driver.findElement(By.id(id)).isSelected();
+	}
+
+	public void selecionarCombo(String id, String valor) {
+		WebElement element = driver.findElement(By.id(id));
+		Select combo = new Select(element);
+		combo.selectByValue(valor);
+	}
+
+	public void selecionarComboByVisibleText(String id, String valor) {
+		WebElement element = driver.findElement(By.id(id));
+		Select combo = new Select(element);
+		combo.selectByVisibleText(valor);
+	}
+
+	public String obterTexto(String id) {
+		return driver.findElement(By.id(id)).getText();
+	}
+	
+	public String obterTexto(By by) {
+		return driver.findElement(by).getText();
+	}
+	
+	
+
+	public WebElement obterElementoPorId(String id) {
+		return driver.findElement(By.id(id));
+	}
 }
