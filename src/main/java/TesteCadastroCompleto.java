@@ -71,11 +71,11 @@ public class TesteCadastroCompleto {
 		WebElement divResultado = driver.findElement(By.id("resultado"));
 		Assert.assertEquals("Cadastrado!", divResultado.findElement(By.tagName("span")).getText());
 
-		Assert.assertEquals("Nome: " + nome, divResultado.findElement(By.id("descNome")).getText());
-		Assert.assertEquals("Sobrenome: " + sobrenome, divResultado.findElement(By.id("descSobrenome")).getText());
-		Assert.assertEquals("Sexo: " + sexo, divResultado.findElement(By.id("descSexo")).getText());
-		Assert.assertEquals("Comida: " + comida, divResultado.findElement(By.id("descComida")).getText());
-		Assert.assertEquals("Escolaridade: " + escolaridade,
+		Assert.assertEquals("Nome: " + nome, dsl.obterValorCampo("descNome"));
+		Assert.assertEquals("Sobrenome: " + sobrenome, dsl.obterValorCampo("descSobrenome"));
+		Assert.assertEquals("Sexo: " + sexo, dsl.obterValorCampo("descSexo"));
+		Assert.assertEquals("Comida: " + comida, dsl.obterValorCampo("descComida"));
+		Assert.assertEquals("Escolaridade: " + escolaridade, dsl.obterValorCampo("descEscolaridade"));
 				divResultado.findElement(By.id("descEscolaridade")).getText());
 		Assert.assertEquals("Esportes: " + esporte, divResultado.findElement(By.id("descEsportes")).getText());
 		Assert.assertEquals("Sugestoes: " + sugestoes, divResultado.findElement(By.id("descSugestoes")).getText());
