@@ -2,9 +2,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TesteCadastroCompleto {
@@ -14,59 +12,56 @@ public class TesteCadastroCompleto {
 	 */
 	private static final String USER_DIR = System.getProperty("user.dir");
 	private WebDriver driver = new ChromeDriver();
-	private DSL dsl = new DSL(driver);
+	private CampoTreinamentoPage page;
+
+	private String nome = "Lucas";
+	private String sobrenome = "Soares";
+	private String sexo = "Masculino";
+	private String comida = "Pizza";
+	private String escolaridade = "2graucomp";
+	private String esporte = "Futebol Corrida";
 
 	@Before
 	public void init() {
 		driver.get(USER_DIR + "/src/main/resources/componentes.html");
+		page = new CampoTreinamentoPage(driver);
 
 	}
 
 	@Test
 	public void cadastrar() {
 
-		String nome = "Lucas";
-		String sobrenome = "Soares";
-		String sexo = "Masculino";
-		String comida = "Pizza";
-		String escolaridade = "2graucomp";
-		String esporte = "Futebol Corrida";
-		String sugestoes = "Teste";
+		page.setNome(nome);
+		page.setSobrenome(sobrenome);
+		page.setSexoMasculino();
+		page.setComidaPizza();
+		page.setEscolaridade(escolaridade);
+		page.setEsporte("Futebol", "Corrida");
 
-		// seta nome.
-		dsl.escrever("elementosForm:nome", nome);
-		// seta sobrenome.
-		dsl.escrever("elementosForm:sobrenome", sobrenome);
-		// seleciona radio button sexo e verifica se foi selecionado.
-		dsl.clicarRadio("elementosForm:sexo:0");
-		Assert.assertTrue(driver.findElement(By.id("elementosForm:sexo:0")).isSelected());
-		// seleciona checkbox comida.
-		dsl.clicarRadio("elementosForm:comidaFavorita:2");
+		page.cadastrar();
 
-		// seleciona escolaridade.
-		dsl.selecionarCombo("elementosForm:escolaridade", escolaridade);
+		Assert.assertTrue(page.obterResultadoCadastro().startsWith("Cadastrado!"));
+		Assert.assertTrue(page.obterNomeCadastro().endsWith(nome));
+		Assert.assertEquals("Sobrenome: " + sobrenome, page.obterSobrenomeCadastro());
+		Assert.assertEquals("Sexo: " + sexo, page.obterSexoCadastro());
+		Assert.assertEquals("Comida: " + comida, page.obterComidaCadastro());
+		Assert.assertEquals("Escolaridade: " + escolaridade, page.obterEscolaridadeCadastro());
+		Assert.assertEquals("Esportes: " + esporte, page.obterEsporteCadastro());
 
-		// seleciona esportes.
+	}
 
-		dsl.selecionarComboByVisibleText("elementosForm:esportes", "Futebol");
-		dsl.selecionarComboByVisibleText("elementosForm:esportes", "Corrida");
+	@Test
+	public void verificaEsportes() {
 
-		// escreve sugestoes.
-		dsl.escrever("elementosForm:sugestoes", sugestoes);
+		page.setNome(nome);
+		page.setSobrenome(sobrenome);
+		page.setSexoMasculino();
+		page.setComidaPizza();
+		page.setEscolaridade(escolaridade);
+		page.setEsporte("Futebol", "Corrida", "O que eh esporte?");
+		page.cadastrar();
 
-		// cadastra.
-		dsl.clicar("elementosForm:cadastrar");
-
-		WebElement divResultado = dsl.obterElementoPorId("resultado");
-		Assert.assertEquals("Cadastrado!", divResultado.findElement(By.tagName("span")).getText());
-
-		Assert.assertEquals("Nome: " + nome, dsl.obterTexto("descNome"));
-		Assert.assertEquals("Sobrenome: " + sobrenome, dsl.obterTexto("descSobrenome"));
-		Assert.assertEquals("Sexo: " + sexo, dsl.obterTexto("descSexo"));
-		Assert.assertEquals("Comida: " + comida, dsl.obterTexto("descComida"));
-		Assert.assertEquals("Escolaridade: " + escolaridade, dsl.obterTexto("descEscolaridade"));
-		Assert.assertEquals("Esportes: " + esporte, dsl.obterTexto("descEsportes"));
-		Assert.assertEquals("Sugestoes: " + sugestoes, dsl.obterTexto("descSugestoes"));
+		Assert.assertEquals("Voce faz esporte ou nao?", page.obterTextoAlertEsporte());
 
 	}
 

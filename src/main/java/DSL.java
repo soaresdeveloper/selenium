@@ -13,6 +13,7 @@ public class DSL {
 	}
 
 	public void escrever(String idCampo, String texto) {
+		driver.findElement(By.id(idCampo)).clear();
 		driver.findElement(By.id(idCampo)).sendKeys(texto);
 	}
 
@@ -47,14 +48,16 @@ public class DSL {
 	public String obterTexto(String id) {
 		return driver.findElement(By.id(id)).getText();
 	}
-	
+
 	public String obterTexto(By by) {
 		return driver.findElement(by).getText();
 	}
-	
-	
 
 	public WebElement obterElementoPorId(String id) {
 		return driver.findElement(By.id(id));
+	}
+
+	public String obterTextoAlertEsporte() {
+		return driver.switchTo().alert().getText();
 	}
 }
