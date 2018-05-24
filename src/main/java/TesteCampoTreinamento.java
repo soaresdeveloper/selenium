@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,10 +18,12 @@ public class TesteCampoTreinamento {
 	 */
 	private static final String USER_DIR = System.getProperty("user.dir");
 	private WebDriver driver = new ChromeDriver();
+	private CampoTreinamentoPage page;
 
 	@Before
 	public void init() {
 		driver.get(USER_DIR + "/src/main/resources/componentes.html");
+		page = new CampoTreinamentoPage(driver);
 
 	}
 
@@ -174,6 +177,17 @@ public class TesteCampoTreinamento {
 		Assert.assertEquals("Cuidado onde clica, muitas armadilhas...", span.getText());
 
 		driver.quit();
+	}
+
+	@Test
+	public void testJavascript() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		// js.executeScript("alert('Testando js via selenium')");
+		js.executeScript("document.getElementById('" + page.getNomeId() + "').value = 'Escrito via js'");
+		js.executeScript("document.getElementById('" + page.getSobrenomeId() + "').type = 'radio'");
+		
+		WebElement element = driver.findElement(By.id(page.getNomeId()));
+		js.executeScript("arguments[0].style.border = arguments[1]",element, "solid 4px red");
 	}
 
 }
