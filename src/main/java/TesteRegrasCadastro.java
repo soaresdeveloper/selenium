@@ -87,7 +87,7 @@ public class TesteRegrasCadastro {
 		page.cadastrar();
 		System.out.println(msg);
 
-		Assert.assertEquals(msg, page.obterTextoAlertEsporte());
+		Assert.assertEquals(msg, page.obterTextoAlert());
 
 	}
 

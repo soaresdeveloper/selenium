@@ -103,8 +103,8 @@ public class CampoTreinamentoPage {
 		return dsl.obterTexto("descSugestoes");
 	}
 
-	public String obterTextoAlertEsporte() {
-		return dsl.obterTextoAlertEsporte();
+	public String obterTextoAlert() {
+		return dsl.obterTextoAlert();
 	}
 
 	public final String getNomeId() {

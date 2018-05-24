@@ -58,7 +58,7 @@ public class DSL {
 		return driver.findElement(By.id(id));
 	}
 
-	public String obterTextoAlertEsporte() {
+	public String obterTextoAlert() {
 		return driver.switchTo().alert().getText();
 	}
 

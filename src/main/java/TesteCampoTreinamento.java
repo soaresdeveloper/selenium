@@ -181,13 +181,7 @@ public class TesteCampoTreinamento {
 
 	@Test
 	public void testJavascript() {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		// js.executeScript("alert('Testando js via selenium')");
-		js.executeScript("document.getElementById('" + page.getNomeId() + "').value = 'Escrito via js'");
-		js.executeScript("document.getElementById('" + page.getSobrenomeId() + "').type = 'radio'");
 		
-		WebElement element = driver.findElement(By.id(page.getNomeId()));
-		js.executeScript("arguments[0].style.border = arguments[1]",element, "solid 4px red");
 	}
 
 }
