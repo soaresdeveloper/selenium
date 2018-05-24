@@ -50,21 +50,6 @@ public class TesteCadastroCompleto {
 
 	}
 
-	@Test
-	public void verificaEsportes() {
-
-		page.setNome(nome);
-		page.setSobrenome(sobrenome);
-		page.setSexoMasculino();
-		page.setComidaPizza();
-		page.setEscolaridade(escolaridade);
-		page.setEsporte("Futebol", "Corrida", "O que eh esporte?");
-		page.cadastrar();
-
-		Assert.assertEquals("Voce faz esporte ou nao?", page.obterTextoAlertEsporte());
-
-	}
-
 	@After
 	public void quit() {
 		driver.quit();
