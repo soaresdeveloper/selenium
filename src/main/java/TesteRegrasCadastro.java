@@ -51,15 +51,14 @@ public class TesteRegrasCadastro {
 	@Parameters
 	public static Collection<Object[]> getCollection() {
 		return Arrays.asList(new Object[][] {
-			
+
 				// Massa de teste.
 
 				{ "", "", "", Arrays.asList(), new String[] {}, "Nome eh obrigatorio" },
 				{ "Lucas", "", "", Arrays.asList(), new String[] {}, "Sobrenome eh obrigatorio" },
 				{ "Lucas", "Soares", "", Arrays.asList(), new String[] {}, "Sexo eh obrigatorio" },
-				{ "Lucas", "Soares", "Masculino", Arrays.asList("Carne","Vegetariano"), new String[] {}, "Tem certeza que voce eh vegetariano?" },
-				{ "Lucas", "Soares", "Masculino", Arrays.asList("Carne","Pizza"), new String[] {"Futebol","O que eh esporte?"}, "Voce faz esporte ou nao?" }
-		});
+				{ "Lucas", "Soares", "Masculino", Arrays.asList("Carne", "Vegetariano"), new String[] {},"Tem certeza que voce eh vegetariano?" },
+				{ "Lucas", "Soares", "Masculino", Arrays.asList("Carne", "Pizza"), new String[] { "Futebol", "O que eh esporte?" }, "Voce faz esporte ou nao?" } });
 	}
 
 	@Test
@@ -70,7 +69,8 @@ public class TesteRegrasCadastro {
 
 		if (sexo.equals("Masculino")) {
 			page.setSexoMasculino();
-		} else {
+		}
+		if (sexo.equals("Feminino")) {
 			page.setSexoFeminino();
 		}
 		if (comidas.contains("Carne"))
@@ -79,12 +79,14 @@ public class TesteRegrasCadastro {
 			page.setComidaPizza();
 		if (comidas.contains("Frango"))
 			page.setComidaFrango();
+		if (comidas.contains("Vegetariano"))
+			page.setComidaVegetariano();
 
 		page.setEsporte(esportes);
 
 		page.cadastrar();
 		System.out.println(msg);
-		
+
 		Assert.assertEquals(msg, page.obterTextoAlertEsporte());
 
 	}
